@@ -1,0 +1,4 @@
+DrinkID;DrinkName;Ingrd1Name;Ingrd2Name;Ingrd3Name;Ingrd4Name;Ingrd5Name;Ingrd6Name;Ingrd1Amount;Ingrd2Amount;Ingrd3Amount;Ingrd4Amount;Ingrd5Amount;Ingrd6Amount
+0;Gin&Tonic;Gin;Tonic;None;None;None;None;25;50;None;None;None;None
+1;Rum&Tonic;Rum;Tonic;None;None;None;None;25;50;None;None;None;None
+2;Rum&Cola;Rum;Cola;None;None;None;None;25;50;None;None;None;None

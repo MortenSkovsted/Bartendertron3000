@@ -1,0 +1,7 @@
+PumpName;GPIOPin
+Pump1;8
+Pump2;9
+Pump3;10
+Pump4;11
+Pump5;12
+Pump6;13

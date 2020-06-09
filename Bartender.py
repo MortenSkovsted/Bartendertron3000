@@ -15,6 +15,7 @@ This is a temporary script file.
 
 import wx
 import ReadDrinksTXT as MyDrinks
+from pumpconfig import GetIngridentsPumpDict
 
 
 ########################################################################
@@ -28,8 +29,10 @@ class Drink:
         self.name = name
         self.ingredients = ingredients
         self.amounts = amounts     
+      
 
-
+    
+    
 ########################################################################
 class MyForm(wx.Frame):
 
@@ -70,12 +73,38 @@ class MyForm(wx.Frame):
         #Drink_btn = wx.Button(self, label='Pour Drink', pos=(100, 100))
         #self.Drink_btn.Bind(wx.EVT_BUTTON, self.onDrinkClick)
         
+        
+
+        
+        
+        
+        
         button = wx.Button(panel, label = 'Pour Drink', pos=(300, 160), size = (100,60))
         self.Bind(wx.EVT_BUTTON, self.PourDrink, button)
 
     def PourDrink(self, event):
         obj = self.cb.GetClientData(self.cb.GetSelection())
+        pumpdict = GetIngridentsPumpDict()
+        pump_ml_to_s = 130/150          #150 ml in 130 sec
+        
         print(f"You must be thirsty for {obj.name}")
+        drinkzip = zip(obj.ingredients, obj.amounts)
+        #print(set(drinkzip))
+        drinkzip = sorted(set(drinkzip), key=lambda x:x[1])
+        print(drinkzip)
+        
+        t = 0
+        for i, drink in enumerate(drinkzip):
+            ingredient = drink[0]
+            volumen = drink[1]
+            print(ingredient)
+            for j in range(i,len(drinkzip)):
+                print(f'Pump to led {pumpdict[drinkzip[j][0]][1]}')
+                
+            print(f'for {(volumen*pump_ml_to_s)-t} sec')
+            t += volumen*pump_ml_to_s
+        #print(f"{obj.ingredients}")
+        #print(f"{obj.amounts}")
 
 
 

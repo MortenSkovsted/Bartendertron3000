@@ -1,7 +1,7 @@
 PumpName;GPIOPin
-Pump1;16
-Pump2;18
-Pump3;36
-Pump4;22
-Pump5;37
-Pump6;31
+Pump1;23
+Pump2;24
+Pump3;25
+Pump4;16
+Pump5;26
+Pump6;6

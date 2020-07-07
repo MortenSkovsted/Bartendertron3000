@@ -51,7 +51,6 @@ def PressDrinkButton():
 
 
 
-
 drinks = MyDrinks.FinalDrinksList()
 #print(drinks)
 

@@ -1,7 +1,7 @@
 PumpName;IngredientName
-Pump1;Rum
-Pump2;Cola
-Pump3;Gin
-Pump4;Tonic
+Pump1;Gin
+Pump2;Tonic
+Pump3;None
+Pump4;None
 Pump5;None
 Pump6;None

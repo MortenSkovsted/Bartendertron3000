@@ -9,21 +9,18 @@ from pumpconfig import GetIngridentsPumpDict
 import time
 
 
-
-
-
 def GetDrinkList():
 
     drinksfile = open("drinks.txt")
-    
+
     drinklist = []
-    
+
     firstline = True
     for line in drinksfile:
         #remove newline
         if line[-1] == "\n":
             line = line[:-1]
-        
+
         if firstline:
             firstline = False
             Drinksheader = line.split(";")
@@ -33,21 +30,21 @@ def GetDrinkList():
         drinklist.append(info)
 
     drinksfile.close()
-    
+
     return drinklist
 
 
 def GetActiveIngridents():
-    
+
     ActiveIngridents = []
-    
+
     pumpsfile = open("pumps.txt")
     firstline = True
     for line in pumpsfile:
         #remove newline, if there
         if line[-1] == "\n":
             line = line[:-1]
-        
+
         if firstline:
             firstline = False
             pumpheader = line.split(";")
@@ -56,20 +53,20 @@ def GetActiveIngridents():
         temp = line.split(";")
         if temp[1] != "None":
             ActiveIngridents.append(temp[1])
-    
+
     pumpsfile.close()
 
     return ActiveIngridents
-        
+
 def GetpumpGPIO():
     return None
 
 def GetActiveDrinkslist():
     FullDrinksList = GetDrinkList()
     ActiveIngridents = GetActiveIngridents()
-    
+
     ActiveDrinkList = []
-    
+
     for drink in FullDrinksList:
         IngridentNames = drink[2:8]
 
@@ -77,10 +74,10 @@ def GetActiveDrinkslist():
         for ingrident in IngridentNames:
             if ingrident != "None" and ingrident not in ActiveIngridents:
                 HaveAllIngrident = False
-        
+
         if HaveAllIngrident:
             ActiveDrinkList.append(drink)
-    
+
 
     return ActiveDrinkList
 print(GetActiveIngridents())
@@ -96,55 +93,55 @@ To this format
 """
 def FinalDrinksList():
     UnformatedDrinkslist = GetActiveDrinkslist()
-    
-    
+
+
     #Test if there is only one available drink
     if type(UnformatedDrinkslist[0]) == str:
         ID = int(UnformatedDrinkslist[0])
         name = UnformatedDrinkslist[1]
-        
+
         ingredients = []
         for ingredient in UnformatedDrinkslist[2:8]:
             if ingredient != "None":
                 ingredients.append(ingredient)
-                
+
         amounts = []
         for amount in UnformatedDrinkslist[8:]:
             if amount != "None":
                 amounts.append(int(amount))
-        
+
         return [ID, name, ingredients, amounts]
-        
-    
+
+
     elif type(UnformatedDrinkslist[0]) == list:
         formatedDrinkslist = []
-        
+
         for drink in UnformatedDrinkslist:
 
             ID = int(drink[0])
             name = drink[1]
-        
+
             ingredients = []
             for ingredient in drink[2:8]:
                 if ingredient != "None":
                     ingredients.append(ingredient)
-                
+
             amounts = []
             for amount in drink[8:]:
                 if amount != "None":
                     amounts.append(int(amount))
-        
+
             formatedDrinkslist.append([ID, name, ingredients, amounts])
         return formatedDrinkslist
-            
-        
+
+
     else:
         print(f"Error in FinalDrinksList, UnformatedDrinkslist is {UnformatedDrinkslist}")
 
 def PourDrink(DrinkNameStr, pumpleddict):
     #The number of sec (130) it take to get 150ml
     ml_to_s_conversion = 130/150 #multiply with this factor
-    
+
     DrinkAsList = FindDrinkFromActiveDrinks(DrinkNameStr)
     IngAndAmount = DrinkAsList[-2:]
     Amounts =[amount for amount, ingredient in sorted(zip(IngAndAmount[1],IngAndAmount[0]),reverse=True)]
@@ -161,7 +158,7 @@ def PourDrink(DrinkNameStr, pumpleddict):
         #Get the pump object in the pump led dict
         #On is off and off is on... not logical
         pumpleddict[pumpname].off()
-    
+
     #Stop pumps in reverse order (one with least to add stops first)
     waitingtime = 0
     for i in reversed(range(len(Ingredients))):
@@ -178,10 +175,10 @@ def PourDrink(DrinkNameStr, pumpleddict):
         pumpleddict[pumpname].on()
         #pump.on()
 
-        
-        
-    
-    
+
+
+
+
 def FindDrinkFromActiveDrinks(DrinkNameStr):
     drinks = FinalDrinksList()
     #return [ID, name, ingredients, amounts]
@@ -206,4 +203,3 @@ for pumpname, led in pumpdict.values():
 #print(pumpleddict)
 #PourDrink('Rum&Tonic', pumpleddict)
 #print(GetIngridentsPumpDict())
-

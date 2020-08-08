@@ -4,6 +4,12 @@ Created on Mon Jun  1 14:28:26 2020
 
 @author: morte
 """
+from gpiozero import LED
+from pumpconfig import GetIngridentsPumpDict
+import time
+
+
+
 
 
 def GetDrinkList():
@@ -135,20 +141,69 @@ def FinalDrinksList():
     else:
         print(f"Error in FinalDrinksList, UnformatedDrinkslist is {UnformatedDrinkslist}")
 
+def PourDrink(DrinkNameStr, pumpleddict):
+    #The number of sec (130) it take to get 150ml
+    ml_to_s_conversion = 130/150 #multiply with this factor
+    
+    DrinkAsList = FindDrinkFromActiveDrinks(DrinkNameStr)
+    IngAndAmount = DrinkAsList[-2:]
+    Amounts =[amount for amount, ingredient in sorted(zip(IngAndAmount[1],IngAndAmount[0]),reverse=True)]
+    Ingredients =[ingredient for amount, ingredient in sorted(zip(IngAndAmount[1],IngAndAmount[0]),reverse=True)]
 
+    #print(Amounts)
+    #print(Ingredients)
+    #Get GPIO pin that matches the ingredient
+    pumpdict = GetIngridentsPumpDict()
+    #start all pumps that will be used
+    for ingrident in Ingredients:
+        pumpname = pumpdict[ingrident][0]
+        print(pumpname)
+        #Get the pump object in the pump led dict
+        #On is off and off is on... not logical
+        pumpleddict[pumpname].off()
+    
+    #Stop pumps in reverse order (one with least to add stops first)
+    waitingtime = 0
+    for i in reversed(range(len(Ingredients))):
+        #Stop in reverse order
+        print(Ingredients[i])
+        pumpname = pumpdict[Ingredients[i]][0]
+        print(pumpname)
+        temp = Amounts[i] * ml_to_s_conversion
+        waitingtime = (Amounts[i] * ml_to_s_conversion) - waitingtime
+        print(waitingtime)
+        time.sleep(waitingtime)
+        #pump = LED(led)
+        #print(pumpleddict[pumpname])
+        pumpleddict[pumpname].on()
+        #pump.on()
+
+        
+        
+    
+    
+def FindDrinkFromActiveDrinks(DrinkNameStr):
+    drinks = FinalDrinksList()
+    #return [ID, name, ingredients, amounts]
+    # If only one possible drink and that is the chosen drink (it should be)
+    if type(drinks[0]) == str and drinks[1] == DrinkNameStr:
+        return drinks
+    else:
+        for drink in drinks:
+            if drink[1] == DrinkNameStr:
+                return drink
+
+
+#Testing
 """
-self.id = id
-        self.name = name
-        self.ingredients = ingredients
-        self.amounts = amounts
-
-
-
-
-drinks = [Drink(0, "Gin&Tonic", ["Gin","Tonic"], [25,75]),
-                Drink(1, "Rum&Cola", ["Rom","Cola"], [25,75]),
-                Drink(2, "Old Fashioned", ["Rom","Sirup","Angostura Bitters"], [50,50,5])]
-
-
+pumpdict = GetIngridentsPumpDict()
+pumpleddict = {}
+for pumpname, led in pumpdict.values():
+    temp = LED(led)
+    temp.on()
+    pumpleddict[pumpname] = temp
 """
+#print(pumpleddict)
+#PourDrink('Rum&Tonic', pumpleddict)
+#print(GetIngridentsPumpDict())
 

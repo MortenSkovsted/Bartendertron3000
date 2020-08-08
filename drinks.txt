@@ -2,3 +2,15 @@ DrinkID;DrinkName;Ingrd1Name;Ingrd2Name;Ingrd3Name;Ingrd4Name;Ingrd5Name;Ingrd6N
 0;Gin&Tonic;Gin;Tonic;None;None;None;None;50;25;None;None;None;None
 1;Rum&Tonic;Rum;Tonic;None;None;None;None;25;50;None;None;None;None
 2;Rum&Cola;Rum;Cola;None;None;None;None;25;50;None;None;None;None
+3;Filur;Vodka;AppelsinJuice;RødSodavand;None;None;None;20;60;40;None;None;None
+4;Isbjørn;Vodka;BlueCuracao;CitronSodavand;None;None;None;30;10;80;None;NoneNone
+5;Brandbil;Jägermeister;RødSodavand;None;None;None;30;80;None;None;None
+6;KungFu;Jägermeister;PisangAmbon;Cola;None;None;None;20;10;80;None;None;None
+7;BlackRussian;Vodka;Kahlua;None;None;None;None;50;30;None;None;None
+8;Dark&Stormy;Rum;Lime;GingerBeer;None;None;None;50;10;100;None;None
+9;MoscowMule;Vodka;Lime;GingerBeer;None;None;None;30;10;100;None;None
+10;VodkaGinger;Vodka;Lime;GingerBeer;None;None;None;40;20;100;None;None
+11;Filur;Vodka;Appelsinjuice;Rødsodavand;None;None;None;20;60;40;None;None
+12;Isbjørn;Vodka;Sprite;BlueCuracao;None;None;None;30;80;10;None;None
+13;Brandbil;Vodka;Jägermeister;Rødsodavand;None;None;None;20;20;100;None;None
+14;ÆvleBævle;Vodka;Æblejuice;None;None;None;None;60;100;None;None;None

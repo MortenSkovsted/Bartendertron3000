@@ -6,7 +6,7 @@ astroid==2.1.0
 asttokens==1.1.13
 attrs==19.3.0
 automationhat==0.2.0
-Babel==2.8.0
+Babel==2.9.1
 beautifulsoup4==4.7.1
 bleach==3.1.5
 blinker==1.4
